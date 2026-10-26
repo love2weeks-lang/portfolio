@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300&display=swap">
+<title>권이주 | Design Portfolio</title>
+<!-- 인트로 가드: 모션 감소 설정이면 클래스를 달지 않아 완성된 히어로가 즉시 보입니다 -->
+<script>try{if(!matchMedia('(prefers-reduced-motion: reduce)').matches)(document.documentElement.classList.add('intro-pending'),document.documentElement.classList.add('pf-pending'),document.documentElement.classList.add('pj-pending'))}catch(e){}</script>
+<!-- JS가 아예 꺼진 환경: 1920 기준 정적 배치로 최소한의 화면을 보여줍니다 -->
+<noscript><style>.stage,.chrome{visibility:visible}#c1{left:61px;top:60px;width:190px}#c2{left:1510px;top:60px;width:350px}</style></noscript>
+<style>
+:root{--space:#030a1c;color-scheme:dark;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+html,body{margin:0}
+body{background:var(--space)}
+img{display:block;max-width:none;user-select:none;-webkit-user-drag:none}
+.bg{position:absolute;inset:0;background:var(--space) url(assets/fe5dbce990.webp) center/cover no-repeat}
+.stage{position:absolute;left:0;top:0;width:1920px;height:1080px;transform-origin:0 0;visibility:hidden}
+.ready .stage,.ready .chrome{visibility:visible}
+.stage img,.stage .float{position:absolute}
+.chrome{position:absolute;visibility:hidden}
+.chrome img{width:100%;height:auto}
+h1{margin:0;font-size:0}
+/* 인트로 시작 전 초기 상태. GSAP 실패 시 클래스가 제거되어 전부 보입니다 */
+.intro-pending .planet,.intro-pending .t1,.intro-pending .t2,.intro-pending #tag{opacity:0}
+
+
+/* PROFILE */
+#profile{position:relative;height:100vh;overflow:hidden;background:var(--space)}
+.pbg{position:absolute;inset:0;background:center/cover no-repeat}
+.pstage{position:absolute;left:0;top:0;width:1920px;height:1080px;transform-origin:0 0}
+.pcontent{position:absolute;left:0;top:0;width:1920px;height:1080px}
+.pcontent img{position:absolute}
+.pmobile{display:none;position:relative}
+#profile.m{height:auto;min-height:100vh}
+#profile.m .pstage{display:none}
+#profile.m .pmobile{display:block;padding:44px 0 64px}
+.pm-in{width:calc(540*var(--k,.6)*1px);margin:0 auto;display:flex;flex-direction:column;gap:calc(34*var(--k,.6)*1px)}
+.sl{position:relative;overflow:hidden;width:calc(var(--w)*var(--k,.6)*1px);height:calc(var(--h)*var(--k,.6)*1px)}
+.sl img{position:absolute;top:0;left:calc(var(--x)*var(--k,.6)*-1px);width:calc(var(--iw)*var(--k,.6)*1px);height:auto;max-width:none}
+.pf-pending #ptitle,.pf-pending #pinfo,.pf-pending .pm-in .sl{opacity:0}
+
+/* PROJECT */
+#project{position:relative;height:100vh;overflow:hidden;background:var(--space)}
+.jbg{position:absolute;inset:0;background:center/cover no-repeat}
+.jstage{position:absolute;left:0;top:0;width:1920px;height:1080px;transform-origin:0 0}
+.jcontent{position:absolute;inset:0}
+.jleft{position:absolute;left:0;top:0;width:1920px;height:1080px;transform-origin:0 0;pointer-events:none;z-index:2}
+.jvis{position:absolute;left:0;top:0;width:750px;height:1080px;z-index:0;pointer-events:none}
+.jv{position:absolute;inset:0;opacity:0;will-change:opacity,transform}
+.jv img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;max-width:none}
+.jorbit{position:absolute;left:481px;top:0;pointer-events:none;max-width:none}
+.jnav{position:absolute;inset:0;pointer-events:none;z-index:2}
+.jn{position:absolute;pointer-events:auto;display:flex;align-items:center;margin:0;padding:8px 18px 8px 8px;border:0;background:none;cursor:pointer;font:300 56px/1 Inter,"Helvetica Neue",Arial,sans-serif;color:#3f6b92;transition:color .25s}
+.jn:focus-visible{outline:2px solid rgba(193,227,255,.75);outline-offset:2px;border-radius:14px}
+.jdot{flex:none;width:20px;height:20px;border-radius:50%;background:#3f6b92;margin-right:11px;transition:background .25s,box-shadow .25s}
+.jn.on{color:#c1e3ff}
+.jn.on .jdot{background:#c1e3ff;box-shadow:0 0 14px 4px rgba(193,227,255,.55)}
+.jinfo{position:absolute;inset:0;pointer-events:none;z-index:1}
+.jf{position:absolute;inset:0;opacity:0;will-change:opacity,transform}
+.jf img{position:absolute;display:block;max-width:none}
+.jd-txt{display:none}
+.jbtn{z-index:2;position:absolute;left:1506px;top:923px;width:331px;height:80px;box-sizing:border-box;padding:0;display:flex;align-items:center;justify-content:center;cursor:pointer;border-radius:40px;border:2px solid rgba(167,167,179,.85);background:radial-gradient(120% 140% at 50% 0%,rgba(110,125,170,.16),rgba(4,10,24,.96) 62%);box-shadow:inset 0 0 16px rgba(150,165,205,.16);transition:border-color .2s,box-shadow .2s}
+.jbtn img{display:block;transition:filter .2s}
+.jbtn:hover,.jbtn:focus-visible{border-color:rgba(214,226,255,.98);box-shadow:inset 0 0 18px rgba(190,205,240,.28),0 0 14px rgba(160,190,240,.18)}
+.jbtn:hover img,.jbtn:focus-visible img{filter:brightness(1.3)}
+.jbtn:focus-visible{outline:2px solid rgba(193,227,255,.75);outline-offset:3px}
+.jbtn.off{opacity:.38;cursor:default}
+.jbtn.off:hover{border-color:rgba(167,167,179,.85);box-shadow:inset 0 0 16px rgba(150,165,205,.16)}
+.jbtn.off:hover img{filter:none}
+.pj-pending .jcontent{opacity:0}
+@media (prefers-reduced-motion:reduce){.jn,.jdot,.jbtn,.jbtn img{transition:none}}
+/* PROJECT — mobile / tablet (portrait or <=820px) */
+#project.m{height:auto;min-height:100vh}
+#project.m .jstage{position:relative;width:auto;height:auto;transform:none!important}
+#project.m .jcontent{position:relative;inset:auto;display:flex;flex-direction:column;align-items:center;padding-bottom:56px}
+#project.m .jleft{display:contents;transform:none!important}
+#project.m .jvis{position:relative;width:100%;height:auto;aspect-ratio:750/800;overflow:hidden}
+#project.m .jorbit{display:none}
+#project.m .jnav{position:relative;inset:auto;pointer-events:auto;display:flex;flex-wrap:wrap;justify-content:center;gap:2px 4px;padding:14px 8px 4px}
+#project.m .jn{position:static!important;font-size:30px;padding:6px 10px 6px 6px}
+#project.m .jdot{width:10px;height:10px;margin-right:6px}
+#project.m .jn.on .jdot{box-shadow:0 0 8px 2px rgba(193,227,255,.55)}
+#project.m .jinfo{position:relative;inset:auto;display:grid;width:calc(740*var(--k,.5)*1px);margin-top:10px;pointer-events:auto}
+#project.m .jf{position:relative;inset:auto;grid-area:1/1}
+#project.m .jf img{position:static!important;width:calc(var(--w)*var(--k,.5)*1px)!important;height:auto!important}
+#project.m .jf img.jlogo{width:calc(var(--w)*var(--k,.5)*1.5px)!important;max-width:100%}
+#project.m .jd-img{display:none!important}
+#project.m .jd-txt{display:block;margin:calc(30*var(--k,.5)*1px) 0 calc(34*var(--k,.5)*1px);font:400 15px/1.7 Pretendard,"Apple SD Gothic Neo","Noto Sans KR","Malgun Gothic",sans-serif;color:rgba(190,204,232,.86);word-break:keep-all}
+#project.m .jbtn{position:relative;left:auto;top:auto;margin-top:34px}
+@media (max-width:480px){#project.m .jn{font-size:26px;padding:6px 5px 6px 4px}#project.m .jnav{gap:0;padding-left:4px;padding-right:4px}}
+
+/* ARCHIVE (hash route: #/archive/<id>) */
+html.in-archive #hero,html.in-archive #profile,html.in-archive #project{display:none}
+html.in-archive,html.in-archive body{background:#010204}
+#archive{display:none;min-height:100vh;background:#010204;overflow-x:clip;color:#fff}
+html.in-archive #archive{display:block}
+.ah{position:sticky;top:0;z-index:20;background:#040a16}
+.ahs{overflow-x:auto;overflow-y:hidden;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.ahs::-webkit-scrollbar{display:none}
+.aback{position:absolute;left:calc(60px*var(--hs,1));top:50%;transform:translateY(-50%);width:calc(38px*var(--hs,1));aspect-ratio:38/37;margin:0;padding:0;border:0;border-radius:50%;background:transparent;cursor:pointer;z-index:2;transition:filter .2s;-webkit-tap-highlight-color:transparent}
+.ah .aback img{display:block;width:100%;min-width:0;height:auto}
+.aback:hover{filter:brightness(1.35)}
+.aback:focus-visible{outline:2px solid rgba(193,227,255,.85);outline-offset:3px}
+@media (max-width:1099px){.aback{left:14px;width:36px}}
+.ah img{display:block;width:100%;min-width:1100px;height:auto;max-width:none;user-select:none;-webkit-user-drag:none}
+.alist{display:flex;flex-direction:column;align-items:center;gap:150px;padding:150px 16px 200px}
+.acard{position:relative;width:100%;max-width:1444px;flex:none}
+.acard img{display:block;max-width:none;height:auto;user-select:none;-webkit-user-drag:none}
+.fd{position:absolute;margin:0;padding:0;border:0;border-radius:999px;background:transparent;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.fd{transition:box-shadow .2s,backdrop-filter .2s,-webkit-backdrop-filter .2s}
+.fd:hover,.fd:focus-visible{box-shadow:inset 0 0 0 2px rgba(214,226,255,.98),inset 0 0 18px rgba(190,205,240,.28),0 0 14px rgba(160,190,240,.18);-webkit-backdrop-filter:brightness(1.3);backdrop-filter:brightness(1.3)}
+.fd:focus-visible{outline:2px solid rgba(193,227,255,.75);outline-offset:3px}
+@media (prefers-reduced-motion:reduce){.fd{transition:none}}
+.sr-only{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+
+/* FULL DESIGN modal */
+html.pop-open{overflow:hidden}
+.pov{--pw:min(1444px,94vw,calc((100vh - 32px)*1444/1624));--u:calc(var(--pw)/1444);position:fixed;inset:0;z-index:100;display:none;align-items:center;justify-content:center;background:rgba(1,2,4,.78);overscroll-behavior:contain}
+@supports (height:100dvh){.pov{--pw:min(1444px,94vw,calc((100dvh - 32px)*1444/1624))}}
+.pov.on{display:flex}
+.pdlg{position:relative;width:var(--pw);height:calc(var(--pw)*1624/1444);background:#101624;border-radius:calc(var(--u)*30);overflow:hidden;outline:none}
+.pdlg::after{content:"";position:absolute;inset:0;border-radius:inherit;box-shadow:inset 0 0 0 max(1px,calc(var(--u)*2)) #51556f;pointer-events:none;z-index:6}
+.pbtn{position:absolute;margin:0;padding:0;border:0;border-radius:50%;overflow:hidden;background:transparent;cursor:pointer;z-index:5;width:calc(var(--u)*74);height:calc(var(--u)*74);transition:filter .2s;-webkit-tap-highlight-color:transparent}
+.pbtn img{display:block;width:100%;height:100%;pointer-events:none}
+.pbtn:hover{filter:brightness(1.3)}
+.pbtn:focus-visible{outline:2px solid rgba(193,227,255,.85);outline-offset:2px}
+.pclose{left:calc(var(--u)*32);top:calc(var(--u)*32)}
+.pprev{left:calc(var(--u)*42);top:calc(var(--u)*775)}
+.pnext{left:calc(var(--u)*1329);top:calc(var(--u)*775)}
+.pscroll{background:#101624;position:absolute;left:calc(var(--u)*146);top:calc(var(--u)*101);width:calc(var(--u)*1197);bottom:0;box-sizing:border-box;padding-right:calc(var(--u)*30);overflow-x:hidden;overflow-y:auto;overscroll-behavior:contain;outline:none}
+.pscroll:focus-visible{box-shadow:inset 0 0 0 2px rgba(193,227,255,.35)}
+.pscroll img{display:block;width:calc(var(--u)*1152);max-width:none;height:auto;user-select:none;-webkit-user-drag:none}
+.pscroll::-webkit-scrollbar{width:calc(var(--u)*15)}
+.pscroll::-webkit-scrollbar-track{background:transparent}
+.pscroll::-webkit-scrollbar-thumb{background:#8f92a4;border-radius:999px;min-height:calc(var(--u)*100)}
+@supports not selector(::-webkit-scrollbar){.pscroll{scrollbar-width:thin;scrollbar-color:#8f92a4 transparent}}
+@media (max-width:820px),(max-aspect-ratio:23/20){
+  .pov{--pw:calc(100vw - 16px);--u:1px}
+  @supports (height:100dvh){.pov{--ph:calc(100dvh - 16px)}}
+  .pdlg{width:calc(100vw - 16px);height:calc(100vh - 16px);border-radius:20px}
+  @supports (height:100dvh){.pdlg{height:calc(100dvh - 16px)}}
+  .pdlg::after{box-shadow:inset 0 0 0 2px #51556f}
+  .pbtn{width:44px;height:44px}
+  .pclose{left:10px;top:8px}
+  .pprev{left:auto;right:62px;top:8px}
+  .pnext{left:auto;right:10px;top:8px}
+  .pscroll{left:0;top:60px;width:100%;padding:0 6px 0 8px}
+  .pscroll img{width:100%}
+  .pscroll::-webkit-scrollbar{width:8px}
+  .pscroll::-webkit-scrollbar-thumb{min-height:48px}
+}
+@media (prefers-reduced-motion:reduce){.pbtn{transition:none}}
+
+/* carousel (inside an archive card) */
+.cv{position:absolute;overflow:hidden;touch-action:pan-y;outline:none;user-select:none;-webkit-user-select:none}
+.cv:focus-visible{box-shadow:inset 0 0 0 2px rgba(193,227,255,.7)}
+.cs{position:absolute;inset:0;visibility:hidden;will-change:transform}
+.cs:first-of-type{visibility:visible}
+.cs img{display:block;width:100%;height:100%;max-width:none;pointer-events:none;-webkit-user-drag:none}
+.ca{position:absolute;margin:0;padding:0;border:0;border-radius:50%;background:transparent;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.ca img{display:block;width:100%;height:auto;pointer-events:none}
+.ca:focus-visible{outline:2px solid rgba(193,227,255,.85);outline-offset:2px}
+.cd{position:absolute;display:flex;justify-content:space-between;align-items:center}
+.cdot{position:relative;flex:none;aspect-ratio:1;height:auto;margin:0;padding:0;border:0;border-radius:50%;background:#67676a;cursor:pointer;transition:background-color .2s}
+.cdot::after{content:"";position:absolute;inset:-9px -5px}
+.cdot.on{background:#fdfdff}
+.cdot:focus-visible{outline:2px solid rgba(193,227,255,.85);outline-offset:3px}
+@media (prefers-reduced-motion:reduce){.cdot,.aback{transition:none}}
+</style>
+</head>
+<body>
+<section id="hero" style="position:relative;height:100vh;overflow:hidden">
+<div class="bg" aria-hidden="true"></div>
+
+<main class="stage" id="stage">
+  <div class="float" style="left:0;top:0;width:1920px;height:1080px">
+    <img class="planet" src="assets/b6241f2625.webp" width="850" height="850" alt="" style="left:538px;top:63px">
+    <img class="orbit" src="assets/66869be960.webp" width="1195" height="708" alt="" style="left:363px;top:125px">
+  </div>
+  <img class="star" src="assets/19683a80e8.png" width="73" height="74" alt="" style="left:448px;top:133px">
+  <img class="star" src="assets/5092813355.png" width="23" height="23" alt="" style="left:511px;top:187px">
+  <img class="star" src="assets/f55216003a.png" width="29" height="29" alt="" style="left:527px;top:161px">
+  <h1>
+    <canvas id="tcv" width="1272" height="511" aria-hidden="true" style="position:absolute;left:325px;top:185px;width:1272px;height:511px;pointer-events:none"></canvas>
+    <img class="t1" src="assets/5eb4588a34.webp" width="762" height="263" alt="Focus on" style="left:326px;top:184px">
+    <img class="t2" src="assets/58b7dca4f7.webp" width="917" height="297" alt="my World" style="left:680px;top:399px">
+  </h1>
+  <img src="assets/96125d7dbc.png" width="992" height="45" alt="시선이 머무는 순간에 FOCUS하는 디자이너, 권이주입니다." id="tag" style="left:463px;top:978px">
+</main>
+
+<img class="chrome" id="c1" src="assets/2bccaf86fd.png" alt="Design Portfolio">
+<img class="chrome" id="c2" src="assets/8011f156e9.png" alt="Visual Content Designer — Campaign / Landing Page / Banner">
+</section>
+
+<section id="profile" aria-label="Profile">
+  <div class="pbg" aria-hidden="true" style="background-image:url(assets/f0876071ca.webp)"></div>
+  <div class="pstage" id="pstage">
+    <div class="pcontent" id="pcontent">
+      <img id="ptitle" src="assets/19459401da.webp" width="1698" height="98" alt="Profile" style="left:110px;top:86px">
+      <img id="pinfo" src="assets/714c48486d.webp" width="1702" height="688" alt="권이주 프로필: 학력, 수상, 경력, 주요 프로젝트, Focus on" style="left:106px;top:235px">
+    </div>
+  </div>
+  <div class="pmobile" id="pmobile"><div class="pm-in" id="pmin"></div></div>
+</section>
+
+
+<script>
+(function(){
+  var st=document.getElementById('stage'),tag=document.getElementById('tag'),c1=document.getElementById('c1'),c2=document.getElementById('c2');
+  function layout(){
+    var w=innerWidth,h=innerHeight,portrait=w/h<1.15,s,ox,oy;
+    if(!portrait){
+      s=Math.min(w/1920,h/1080);ox=(w-1920*s)/2;oy=(h-1080*s)/2;
+      place(c1,ox,oy,s,61,60,190);place(c2,ox,oy,s,1510,60,350);
+      tag.style.visibility='';
+    }else{
+      s=w/1340;ox=w/2-960*s;oy=h/2-540*s;
+      var m=Math.max(16,w*.05);
+      box(c1,m,m,Math.min(w*.36,190));
+      box(c2,null,m,Math.min(w*.46,350),m);
+      tag.style.visibility='hidden';
+    }
+    st.style.transform='translate('+ox+'px,'+oy+'px) scale('+s+')';
+    var hs=document.getElementById('hero');if(hs)hs.style.height=h+'px';
+    document.documentElement.classList.add('ready');
+  }
+  function place(el,ox,oy,s,x,y,wd){el.style.left=ox+x*s+'px';el.style.top=oy+y*s+'px';el.style.right='auto';el.style.width=wd*s+'px'}
+  function box(el,l,t,wd,r){el.style.left=l==null?'auto':l+'px';el.style.right=r==null?'auto':r+'px';el.style.top=t+'px';el.style.width=wd+'px'}
+  addEventListener('resize',layout);layout();
+})();
+</script>
+<section id="project" aria-label="Project">
+  <div class="jbg" aria-hidden="true" style="background-image:url(assets/411880feef.webp)"></div>
+  <div class="jstage" id="jstage">
+    <div class="jcontent" id="jcontent">
+      <div class="jleft" id="jleft">
+      <div class="jvis" id="jvis"></div>
+      <img class="jorbit" src="assets/7f240ebf3b.webp" width="310" height="1080" alt="">
+      <nav class="jnav" id="jnav" aria-label="프로젝트 선택"></nav>
+      </div>
+      <div class="jinfo" id="jinfo" aria-live="polite"></div>
+      <button class="jbtn" id="jbtn" type="button" aria-label="VIEW ARCHIVE"><img src="assets/98275befe3.webp" width="209" height="26" alt=""></button>
+    </div>
+  </div>
+</section>
+
+<main id="archive" aria-label="Archive">
+  <h1 class="sr-only" id="ah1"></h1>
+  <header class="ah" id="ahead"><div class="ahs" id="ahs"><img id="ahimg" alt=""></div><button class="aback" id="aback" type="button" aria-label="프로젝트 목록으로 돌아가기"><img id="abackimg" alt="" width="38" height="37"></button></header>
+  <div class="alist" id="alist"></div>
+</main>
+
+<script>window.TITLE_FRAMES=["assets/28009605c4.webp","assets/23f89560ad.webp","assets/71455b417e.webp","assets/576b52873a.webp","assets/f1ea2bca2c.webp","assets/ecbe5c398b.webp","assets/09f4f54fc0.webp","assets/1f2ee9218b.webp","assets/3d440ad422.webp","assets/b945a7feeb.webp","assets/666a3cf368.webp","assets/a3bcb84d5c.webp","assets/cbbc14a52f.webp","assets/0731ba80c9.webp","assets/09814ed7c8.webp","assets/896758e5cc.webp","assets/5b7b23f435.webp","assets/1731e79a4d.webp","assets/855086f50a.webp","assets/ae056a3893.webp","assets/ac666200a1.webp","assets/ba131cd09f.webp","assets/8c15c74975.webp","assets/81fe525b92.webp","assets/daf62f1bd3.webp","assets/1ba4597276.webp","assets/fed142f415.webp","assets/936f9af4b8.webp","assets/589756809f.webp","assets/d92806f40f.webp","assets/8d38ce798c.webp","assets/8b32d2867d.webp"];</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script>
+(function(){
+  var root=document.documentElement;
+  if(!root.classList.contains('intro-pending'))return; /* 모션 감소: 완성된 정적 히어로, 플로팅도 없음 */
+
+  /* ================= 타이밍 설정 (초) =================
+     at = 시작 시점(페이지 진입 기준), dur = 재생 시간, 끝 = at + dur */
+  var C={
+    planet:{at:0.00,dur:0.50,ease:'power2.out',scaleFrom:0.96},
+    /* 타이틀: AE 영상 프레임을 dur 안에 맞춰 재생. handoff = 끝나기 handoffLead초 전부터
+       고해상도 원본 PNG로 교차 전환(영상은 H.264라 알파/화질 손실이 있어 최종 상태는 원본 PNG) */
+    title :{at:0.35,dur:1.00,handoffLead:0.15,handoff:0.30,canvasFade:0.20},
+    intro :{at:1.10,dur:0.40,ease:'power2.out',y:8},
+    /* 플로팅: 기준 위치 ±amp px, 한 방향 이동 half초 → 왕복 주기 = half×2 = 6초 */
+    float :{amp:10,half:3.0,ease:'sine.inOut'}
+  };
+
+  var q=function(s){return document.querySelector(s)};
+  var P=q('.stage .planet'),F=q('.stage .float'),T1=q('.stage .t1'),T2=q('.stage .t2'),TAG=document.getElementById('tag'),CV=document.getElementById('tcv');
+  var tl,fl,failsafe,frames=[],ctx=null;
+
+  function finish(){root.classList.remove('intro-pending')}
+  function bail(){ /* 실패 시: 모든 요소를 완성 상태로 즉시 복원 (빈 화면 방지) */
+    clearTimeout(failsafe);
+    try{if(tl)tl.kill();if(fl)fl.kill();if(window.gsap)gsap.set([P,F,T1,T2,TAG],{clearProps:'opacity,transform,filter'})}catch(e){}
+    if(CV)CV.style.display='none';
+    finish();
+  }
+
+  try{
+    if(!window.gsap||!P||!F||!T1||!T2||!TAG){bail();return}
+    failsafe=setTimeout(bail,8000);
+
+    var src=window.TITLE_FRAMES||[],N=src.length;
+    var useFrames=!!(CV&&CV.getContext&&N>1);
+    if(useFrames){ctx=CV.getContext('2d');frames=src.map(function(u){var im=new Image();im.src=u;return im})}
+
+    tl=gsap.timeline({paused:true,onComplete:function(){
+      gsap.set([T1,T2,TAG],{clearProps:'filter'});
+      if(CV)CV.style.display='none';
+      frames=[];window.TITLE_FRAMES=null;     /* 프레임 메모리 해제 */
+      finish();                                /* 플로팅(fl)은 계속 실행 */
+    }});
+
+    /* STEP 1: 행성 등장 (.planet 이미지의 opacity/scale — 플로팅은 부모 .float의 y만 사용해 충돌 없음) */
+    tl.fromTo(P,{opacity:0,scale:C.planet.scaleFrom,transformOrigin:'50% 50%'},
+                {opacity:1,scale:1,duration:C.planet.dur,ease:C.planet.ease},C.planet.at);
+
+    /* STEP 2: 필기체 타이틀 (AE 영상 프레임 재생) */
+    if(useFrames){
+      var st={f:0},last=-1,tEnd=C.title.at+C.title.dur;
+      tl.to(st,{f:N-1,duration:C.title.dur,ease:'none',onUpdate:function(){
+        var i=Math.round(st.f);if(i===last)return;last=i;
+        ctx.clearRect(0,0,CV.width,CV.height);ctx.drawImage(frames[i],0,0);
+      }},C.title.at);
+      var hs=tEnd-C.title.handoffLead;
+      tl.fromTo([T1,T2],{opacity:0},{opacity:1,duration:C.title.handoff,ease:'power1.inOut'},hs)
+        .to(CV,{opacity:0,duration:C.title.canvasFade,ease:'none'},tEnd);
+    }else{
+      /* 영상 프레임이 없으면 대체 효과 없이 완성된 타이틀을 바로 표시 */
+      tl.set([T1,T2],{opacity:1},0);
+    }
+
+    /* STEP 4: 하단 소개 문구 */
+    tl.fromTo(TAG,{opacity:0,y:C.intro.y},{opacity:1,y:0,duration:C.intro.dur,ease:C.intro.ease},C.intro.at);
+
+    /* 플로팅: 행성+궤도(.float)만 상하 이동. 무한 반복이라 마스터 타임라인과 분리하되 같은 순간에 시작 */
+    fl=gsap.fromTo(F,{y:-C.float.amp},{y:C.float.amp,duration:C.float.half,ease:C.float.ease,repeat:-1,yoyo:true,paused:true});
+    fl.progress(0.5); /* 기준 위치(중앙)에서 출발 */
+
+    /* 첫 장면에 필요한 이미지 디코딩 후 한 번에 시작 */
+    var imgs=[].slice.call(document.querySelectorAll('.stage img')).concat(frames.slice(0,10));
+    var decode=function(i){return i.decode?i.decode().catch(function(){}):Promise.resolve()};
+    var wait=new Promise(function(r){setTimeout(r,3000)});
+    Promise.race([Promise.all(imgs.map(decode)),wait]).then(function(){
+      clearTimeout(failsafe);
+      requestAnimationFrame(function(){tl.play(0);fl.play()});
+      frames.slice(10).forEach(decode);
+    });
+
+    window.heroIntro={timeline:tl,float:fl,planet:P,floatWrap:F,config:C};
+  }catch(e){bail()}
+})();
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script>
+(function(){
+  var root=document.documentElement,sec=document.getElementById('profile'),ps=document.getElementById('pstage'),
+      pc=document.getElementById('pcontent'),pm=document.getElementById('pmin'),
+      ti=document.getElementById('ptitle'),inf=document.getElementById('pinfo');
+  function isM(){var w=innerWidth;return w<=820||w/innerHeight<1.15}
+  function layout(){
+    var w=innerWidth,h=innerHeight,m=isM();
+    sec.classList.toggle('m',m);
+    if(m){sec.style.height='';sec.style.setProperty('--k',Math.min(w*.92,520)/540)}
+    else{var s=Math.min(w/1920,h/1080);sec.style.height=h+'px';
+      ps.style.transform='translate('+(w-1920*s)/2+'px,'+(h-1080*s)/2+'px) scale('+s+')'}
+  }
+  /* 모바일: 같은 이미지를 CSS로 잘라 세로로 쌓아 표시(재구성/재제작 없음) */
+  [[ti,0,540,98,1698],[inf,0,382,557,1702],[inf,506,526,688,1702],[inf,1174,528,688,1702]].forEach(function(d){
+    var s=document.createElement('div'),im=new Image();s.className='sl';
+    s.style.cssText='--x:'+d[1]+';--w:'+d[2]+';--h:'+d[3]+';--iw:'+d[4];
+    im.src=d[0].src;im.alt='';s.appendChild(im);pm.appendChild(s);
+  });
+  addEventListener('resize',layout);layout();
+
+  /* 스크롤 등장: 최초 1회, 강제 스크롤·핀·스냅 없음 */
+  function show(){root.classList.remove('pf-pending')}
+  if(!root.classList.contains('pf-pending'))return; /* 모션 감소: 즉시 완성 표시 */
+  try{
+    if(!window.gsap||!window.ScrollTrigger){show();return}
+    gsap.registerPlugin(ScrollTrigger);
+    ScrollTrigger.create({trigger:sec,start:'top 75%',once:true,onEnter:function(){
+      /* 순차 등장: ① Profile 타이틀 → ② 정보 이미지 (gap초 뒤). 각각 같은 '뚠!' 모션 */
+      var m=isM(),sl=[].slice.call(pm.children),gap=0.25,
+          T=m?sl[0]:ti,I=m?sl.slice(1):inf,all=[ti,inf].concat(sl);
+      function pop(){return {opacity:1,scale:1,y:0,duration:0.65,ease:'back.out(1.5)'}}
+      gsap.timeline({onComplete:function(){gsap.set(all,{clearProps:'transform'});show()}})
+        .fromTo(T,{opacity:0,scale:0.94,y:20,transformOrigin:'0% 50%'},pop(),0)
+        .fromTo(I,{opacity:0,scale:0.94,y:20,transformOrigin:'50% 50%'},pop(),gap);
+    }});
+  }catch(e){show()}
+})();
+</script>
+<script>window.PROJECTS=[{"id": "tales-runner", "number": "01", "title": "Tales Runner", "period": "2026", "category": "Event & Landing Page | Visual Concept Planning", "description": "게임 퍼블리싱 환경에서 테일즈러너의 이벤트 및 랜딩페이지 메인 디자인을 담당했습니다. 비주얼 컨셉을 기획하고, 스토리보드 구성에 참여하여 콘텐츠의 시각적 방향성을 구체화했습니다. 또한 디자인팀 내 작업 일정 관리를 병행하며, 콘텐츠 제작과 일정 운영 전반에 참여했습니다.", "image": {"src": "assets/77abc6de3c.webp", "w": 750, "h": 1080, "objectPosition": "50% 40%"}, "info": {"head": {"src": "assets/4b0ace872d.webp", "x": 958, "y": 270, "w": 522, "h": 167}, "desc": {"src": "assets/73e3fae27b.webp", "x": 959, "y": 477, "w": 794, "h": 92}}, "clientLogo": {"src": "assets/e6a04264ee.webp", "x": 960, "y": 610, "w": 228, "h": 24, "alt": "Tales Runner 클라이언트 로고"}, "archiveLink": "#/archive/tales-runner", "nav": {"x": 687, "y": 191}}, {"id": "lineage-remastered", "number": "02", "title": "Lineage Remastered", "period": "2024 ~ 2026", "category": "Campaign Banner | Update Note", "description": "리니지 리마스터의 광고 캠페인 제안부터 수주 이후 집행까지 참여했습니다. 주 1회 발행되는 업데이트 노트의 비주얼 컨셉을 기획하고, 1년 이상 메인 디자인을 담당했습니다. 분기별로 변경되는 디자인의 템플릿 가이드를 구축해 제작 및 수정 과정의 업무 효율을 높였으며, 전년 대비 디자인 완성도가 향상되었다는 광고주의 긍정적인 평가와 함께 1분기 계약 연장이라는 프로젝트 성과에 기여했습니다.", "image": {"src": "assets/60511fd569.webp", "w": 750, "h": 1080, "objectPosition": "50% 40%"}, "info": {"head": {"src": "assets/7181754bb7.webp", "x": 959, "y": 271, "w": 664, "h": 166}, "desc": {"src": "assets/0905ffcba5.webp", "x": 959, "y": 477, "w": 790, "h": 157}}, "clientLogo": {"src": "assets/9f888e74d1.webp", "x": 959, "y": 671, "w": 201, "h": 34, "alt": "Lineage Remastered 클라이언트 로고"}, "archiveLink": null, "nav": {"x": 751, "y": 331}}, {"id": "chaos-zero-nightmare", "number": "03", "title": "Chaos Zero Nightmare", "period": "2024 ~ 2025", "category": "Campaign Banner | Infographic", "description": "카오스 제로 나이트메어의 런칭 광고 캠페인 제안부터 수주 이후 집행까지 참여했습니다. 런칭 광고 배너 시안을 제안해 캠페인 수주에 기여했으며, 수주 이후에는 사전예약 및 런칭 광고 배너와 출시 30일 기념 인포그래픽을 제작했습니다. 인포그래픽은 언론 기사에 직접 게재되며, 게임의 주요 성과를 시각적으로 전달하는 콘텐츠로 활용되었습니다.", "image": {"src": "assets/ffabfddb18.webp", "w": 750, "h": 1080, "objectPosition": "50% 20%"}, "info": {"head": {"src": "assets/2051d41c75.webp", "x": 960, "y": 270, "w": 735, "h": 167}, "desc": {"src": "assets/e369d7ba2a.webp", "x": 960, "y": 477, "w": 771, "h": 123}}, "clientLogo": {"src": "assets/28df110b05.webp", "x": 960, "y": 640, "w": 291, "h": 34, "alt": "Chaos Zero Nightmare 클라이언트 로고"}, "archiveLink": null, "nav": {"x": 785, "y": 470}}, {"id": "arkheron", "number": "04", "title": "Arkheron", "period": "2025 ~ 2026", "category": "Campaign Banner | Event page", "description": "알케론의 런칭 광고 캠페인 제안부터 수주 이후 집행까지 참여했습니다. 런칭 키비주얼 시안을 제안해 캠페인 수주에 기여했으며, 수주 이후에는 런칭 광고 배너와 외부 플랫폼(퀘이사존, 쿨엔조이)의 이벤트 소개 페이지를 제작했습니다. 게임 고유의 브랜드 가이드를 준수하며 매체별 특성과 콘텐츠의 목적에 맞춰 비주얼을 구성했습니다.", "image": {"src": "assets/c676d36707.webp", "w": 750, "h": 1080, "objectPosition": "50% 15%"}, "info": {"head": {"src": "assets/68c96ea946.webp", "x": 955, "y": 270, "w": 439, "h": 167}, "desc": {"src": "assets/310d11c9ad.webp", "x": 959, "y": 477, "w": 817, "h": 123}}, "clientLogo": {"src": "assets/2fa86e1d2b.webp", "x": 959, "y": 638, "w": 316, "h": 34, "alt": "Arkheron 클라이언트 로고"}, "archiveLink": null, "nav": {"x": 786, "y": 609}}, {"id": "fellowmoon", "number": "05", "title": "Fellowmoon", "period": "2024 ~ 2025", "category": "Campaign Banner", "description": "신월동행의 런칭 광고 캠페인 제안부터 수주 이후 집행까지 참여했습니다. 런칭 광고 배너 시안을 제안하여 캠페인 수주에 기여했으며, 해당 배너는 실제 광고 소재로 채택되어 집행되었습니다. 수주 이후에도 추가 런칭 배너를 제작하며, 게임의 비주얼 컨셉과 캠페인 목적에 맞춘 광고 디자인을 담당했습니다.", "image": {"src": "assets/fe4ca53430.webp", "w": 750, "h": 1080, "objectPosition": "50% 20%"}, "info": {"head": {"src": "assets/692234d6b5.webp", "x": 959, "y": 270, "w": 414, "h": 167}, "desc": {"src": "assets/9500e2ed67.webp", "x": 959, "y": 477, "w": 670, "h": 123}}, "clientLogo": {"src": "assets/51dc957cc9.webp", "x": 959, "y": 636, "w": 208, "h": 38, "alt": "Fellowmoon 클라이언트 로고"}, "archiveLink": null, "nav": {"x": 754, "y": 748}}, {"id": "battleground", "number": "06", "title": "Battleground", "period": "2024 ~ 2025", "category": "Campaign Visual Design", "description": "배틀그라운드의 업데이트 프로모션 집행 과정에서 인게임 화면 이미지, 업데이트 배너, 캐러셀 이미지를 제작했습니다. 게임 고유의 비주얼 톤앤매너를 반영하여 업데이트 관련 정보를 효과적으로 전달할 수 있는 프로모션 이미지를 디자인했습니다.", "image": {"src": "assets/b2bdc6221a.webp", "w": 750, "h": 1080, "objectPosition": "50% 0%"}, "info": {"head": {"src": "assets/666596a971.webp", "x": 959, "y": 270, "w": 436, "h": 167}, "desc": {"src": "assets/a01c464a3e.webp", "x": 960, "y": 477, "w": 700, "h": 90}}, "clientLogo": {"src": "assets/1c3cd9565f.webp", "x": 960, "y": 604, "w": 300, "h": 34, "alt": "Battleground 클라이언트 로고"}, "archiveLink": null, "nav": {"x": 685, "y": 888}}];</script>
+<script>
+(function(){
+  var P=window.PROJECTS||[];if(!P.length)return;
+  var $=function(s){return document.querySelector(s)},root=document.documentElement,
+      sec=$('#project'),stage=$('#jstage'),left=$('#jleft'),content=$('#jcontent'),visBox=$('#jvis'),nav=$('#jnav'),info=$('#jinfo'),btn=$('#jbtn');
+  var RM=matchMedia('(prefers-reduced-motion: reduce)').matches,START=0,cur=-1,z=1,V=[],F=[],B=[];
+  function el(t,c){var e=document.createElement(t);if(c)e.className=c;return e}
+  function isM(){var w=innerWidth;return w<=820||w/innerHeight<1.15}
+  function box(e,o){e.style.cssText='left:'+o.x+'px;top:'+o.y+'px;width:'+o.w+'px;height:'+o.h+'px;--w:'+o.w}
+
+  /* ---- 데이터 → DOM (프로젝트 배열이 유일한 정보 출처) ---- */
+  P.forEach(function(p,i){
+    var v=el('div','jv'),im=new Image();v.setAttribute('aria-hidden','true');
+    im.src=p.image.src;im.alt='';im.draggable=false;im.style.objectPosition=p.image.objectPosition||'50% 50%';
+    v.appendChild(im);visBox.appendChild(v);V.push(v);
+
+    var f=el('div','jf');f.setAttribute('role','group');f.setAttribute('aria-label',p.number+' '+p.title);
+    var h=new Image();h.src=p.info.head.src;h.alt=p.title+' — '+p.period+' | '+p.category;box(h,p.info.head);
+    var d=new Image();d.className='jd-img';d.src=p.info.desc.src;d.alt=p.description;box(d,p.info.desc);
+    var tx=el('p','jd-txt');tx.textContent=p.description;tx.setAttribute('aria-hidden','true');
+    var lg=new Image();lg.className='jlogo';lg.src=p.clientLogo.src;lg.alt=p.clientLogo.alt||'';box(lg,p.clientLogo);
+    f.appendChild(h);f.appendChild(d);f.appendChild(tx);f.appendChild(lg);info.appendChild(f);F.push(f);
+
+    var b=el('button','jn');b.type='button';b.setAttribute('data-i',i);b.setAttribute('aria-label',p.number+' '+p.title);
+    b.style.left=(p.nav.x-18)+'px';b.style.top=(p.nav.y-36)+'px';
+    b.innerHTML='<span class="jdot"></span><span class="jnum">'+p.number+'</span>';
+    nav.appendChild(b);B.push(b);
+  });
+
+  /* ---- 상태 동기화: 활성 번호·버튼 대상은 항상 cur와 일치 ---- */
+  function sync(){
+    var p=P[cur];
+    B.forEach(function(b,k){var on=k===cur;b.classList.toggle('on',on);if(on)b.setAttribute('aria-current','true');else b.removeAttribute('aria-current')});
+    btn.setAttribute('data-project',p.id);btn.setAttribute('data-archive',p.archiveLink||'');
+    btn.setAttribute('aria-label','VIEW ARCHIVE — '+p.title+(p.archiveLink?'':' (준비 중)'));btn.classList.toggle('off',!p.archiveLink);if(p.archiveLink)btn.removeAttribute('aria-disabled');else btn.setAttribute('aria-disabled','true');
+  }
+  /* ---- 전환: 마지막 클릭 우선. 진행 중 트윈은 overwrite로 정리 ---- */
+  function fade(e,to,dur,from){
+    if(!window.gsap||RM||!dur){e.style.opacity=to;e.style.transform='';return}
+    var o=+gsap.getProperty(e,'opacity')||0;
+    if(to===1&&o<0.02)gsap.fromTo(e,from,Object.assign({opacity:1,scale:1,y:0,duration:dur,ease:'power2.out',overwrite:true},{}));
+    else gsap.to(e,{opacity:to,scale:1,y:0,duration:dur,ease:'power2.out',overwrite:true});
+  }
+  function go(i,instant){
+    if(i===cur||i<0||i>=P.length)return;
+    cur=i;sync();
+    V.forEach(function(v,k){if(k!==i)fade(v,0,instant?0:0.5)});
+    F.forEach(function(f,k){if(k!==i)fade(f,0,instant?0:0.4)});
+    V[i].style.zIndex=F[i].style.zIndex=++z;
+    fade(V[i],1,instant?0:0.5,{opacity:0,scale:1.04});
+    fade(F[i],1,instant?0:0.4,{opacity:0,y:12});
+  }
+  nav.addEventListener('click',function(e){var b=e.target.closest('.jn');if(b)go(+b.getAttribute('data-i'))});
+  nav.addEventListener('keydown',function(e){
+    var d={ArrowDown:1,ArrowRight:1,ArrowUp:-1,ArrowLeft:-1}[e.key];if(!d)return;
+    e.preventDefault();var n=(cur+d+P.length)%P.length;go(n);B[n].focus();
+  });
+  /* VIEW ARCHIVE: 링크가 있으면 이동, 없으면 연결용 이벤트만 발생 (임의 URL 없음) */
+  btn.addEventListener('click',function(){
+    var p=P[cur];
+    if(p.archiveLink){location.assign(p.archiveLink)}
+    else document.dispatchEvent(new CustomEvent('project:archive',{detail:p}));
+  });
+
+  /* ---- 레이아웃 (표지·PROFILE과 동일한 contain 스케일) ---- */
+  function layout(){
+    var w=innerWidth,h=innerHeight,m=isM();sec.classList.toggle('m',m);
+    if(m){sec.style.height='';sec.style.setProperty('--k',Math.min(w*.92,560)/740)}
+    else{var s=Math.min(w/1920,h/1080);sec.style.height=h+'px';
+      var ox=(w-1920*s)/2,oy=(h-1080*s)/2;
+      stage.style.transform='translate('+ox+'px,'+oy+'px) scale('+s+')';
+      /* 원형 비주얼+궤도+번호는 화면 왼쪽 끝에 붙임. 세로가 남으면 높이를 키워 위아래도 닿게 하되, 정보 영역과 겹치지 않는 범위까지만 */
+      var c=Math.max(s,Math.min(h/1080,(960*s-24)/872)),k=c/s;
+      left.style.transform='translate('+(-ox/s)+'px,'+(((h-1080*c)/2-oy)/s)+'px) scale('+k+')'}
+  }
+  addEventListener('resize',layout);layout();
+  go(START,true);
+
+  /* ---- 스크롤 진입: 최초 1회 (PROFILE과 같은 트리거 지점) ---- */
+  function show(){root.classList.remove('pj-pending')}
+  if(!root.classList.contains('pj-pending'))return;
+  try{
+    if(!window.gsap||!window.ScrollTrigger){show();return}
+    gsap.registerPlugin(ScrollTrigger);
+    ScrollTrigger.create({trigger:sec,start:'top 75%',once:true,onEnter:function(){
+      gsap.fromTo(content,{opacity:0,y:20},{opacity:1,y:0,duration:0.65,ease:'power2.out',
+        onComplete:function(){gsap.set(content,{clearProps:'transform'});show()}});
+    }});
+  }catch(e){show()}
+})();
+</script>
+<script>window.ARCHIVES={"tales-runner": {"id": "tales-runner", "number": "01", "title": "Tales Runner", "boxWidth": 1444, "header": {"src": "assets/6ad52ce3eb.webp", "alt": "프로젝트 내비게이션 — 01 Tales Runner(현재), 02 Lineage Remastered, 03 Chaos Zero Nightmare, 04 Arkheron, 05 Fellowmoon, 06 Battleground"}, "cards": [{"id": "tr-01-21st-party", "title": "21주년 파티 랜딩페이지 TAB 1~2", "meta": {"date": "2026.09", "duration": "8일", "members": "1명", "contribution": "100%", "tools": ["Ps", "Ai"]}, "image": {"src": "assets/0c9c0c31a3.webp", "w": 1444, "h": 1215}, "fullDesign": {"x": 1080, "y": 1098, "w": 323, "h": 79}, "popup": null, "detailImages": [{"src": "assets/89fade7536.webp", "w": 888, "h": 2576, "alt": "테일즈런너 21주년 파티 상세 디자인 — 21주년 이벤트 페이지"}, {"src": "assets/2e3c782cbc.webp", "w": 1152, "h": 1935, "alt": "테일즈런너 21주년 파티 상세 디자인 — 21주년 유저 설문조사 페이지"}]}, {"id": "tr-02-sugar-rune", "title": "슈가슈가룬 콜라보 랜딩페이지 TAB 1~3", "meta": {"date": "2026.08", "duration": "16일", "members": "1명", "contribution": "100%", "tools": ["Ps", "Ai"]}, "image": {"src": "assets/8a7c48ca9b.webp", "w": 1453, "h": 1255}, "fullDesign": {"x": 1080, "y": 1138, "w": 323, "h": 79}, "popup": null, "detailImages": [{"sections": [{"src": "assets/ee54ad871a.webp", "w": 1152, "h": 1649}, {"src": "assets/6a7658ea52.webp", "w": 1152, "h": 1279}, {"src": "assets/a375e15eec.webp", "w": 1152, "h": 1401}, {"src": "assets/f2bc140737.webp", "w": 1152, "h": 1527}], "alt": "슈가슈가룬 콜라보 상세 디자인 1/3 — 탭1: 신규 캐릭터, 콜라보 컬렉션, 아이템 미리보기, 출석 이벤트"}, {"sections": [{"src": "assets/8c3da49798.webp", "w": 1144, "h": 2576}, {"src": "assets/7e7448d449.webp", "w": 1144, "h": 2576}, {"src": "assets/e35b733421.webp", "w": 1144, "h": 2576}, {"src": "assets/7c55909ef5.webp", "w": 1144, "h": 2576}], "alt": "슈가슈가룬 콜라보 상세 디자인 2/3 — 탭2: 퍼스널 뽑기판, 캐릭터 교환권, 패키지"}, {"src": "assets/d98b1f7fda.webp", "w": 1152, "h": 2013, "alt": "슈가슈가룬 콜라보 상세 디자인 3/3 — 피에르와 티타임"}]}, {"id": "tr-03-dccf", "title": "대구콘텐츠페어 행사 안내 랜딩페이지", "meta": {"date": "2026.09", "duration": "5일", "members": "1명", "contribution": "100%", "tools": ["Ps", "Ai"]}, "image": {"src": "assets/7f583d0b9a.webp", "w": 1444, "h": 1177}, "fullDesign": {"x": 1080, "y": 1060, "w": 323, "h": 79}, "popup": null, "detailImages": [{"sections": [{"src": "assets/78751e7c89.webp", "w": 1152, "h": 1269}, {"src": "assets/d8b880443d.webp", "w": 1152, "h": 1269}, {"src": "assets/786e7d95f6.webp", "w": 1152, "h": 2538}], "alt": "제5회 대구콘텐츠페어 상세 디자인"}]}, {"id": "tr-04-idea-festival", "title": "아이디어 페스티벌 랜딩페이지 1~3차", "meta": {"date": "2026.2Q", "duration": "각 7~8일", "members": "1명", "contribution": "100%", "tools": ["Ps", "Ai"]}, "image": {"src": "assets/efcf09ec44.webp", "w": 1444, "h": 1216}, "fullDesign": {"x": 1080, "y": 1099, "w": 323, "h": 79}, "popup": null, "detailImages": [{"sections": [{"src": "assets/266775befc.webp", "w": 1152, "h": 2262}, {"src": "assets/7f878539f9.webp", "w": 1152, "h": 2261}], "alt": "제2회 아이디어 페스티벌 크리에이티브 부문 상세 디자인 1/3 — 참가 신청"}, {"sections": [{"src": "assets/9a39ebec54.webp", "w": 1152, "h": 1467}, {"src": "assets/a923709227.webp", "w": 1152, "h": 1466}], "alt": "제2회 아이디어 페스티벌 크리에이티브 부문 상세 디자인 2/3 — 투표"}, {"sections": [{"src": "assets/cb3e56aa5e.webp", "w": 1152, "h": 1439}, {"src": "assets/c1eae553da.webp", "w": 1152, "h": 1439}, {"src": "assets/1f4d645bf5.webp", "w": 1152, "h": 1439}, {"src": "assets/f15854a89e.webp", "w": 1152, "h": 1439}], "alt": "제2회 아이디어 페스티벌 크리에이티브 부문 상세 디자인 3/3 — 발표"}]}, {"id": "tr-05-runner-closet", "title": "런너의 옷장 2026 1~3Q", "meta": {"duration": "1.5일", "members": "1명", "contribution": "100%"}, "image": {"src": "assets/11cb6c46f4.webp", "w": 1444, "h": 1175}, "fullDesign": {"x": 1080, "y": 1058, "w": 323, "h": 79}, "popup": null, "carousel": {"viewport": {"x": 2, "y": 325, "w": 1440, "h": 584}, "duration": 0.4, "prev": {"src": "assets/4656d46c6b.webp", "x": 22, "y": 579, "w": 76, "h": 76}, "next": {"src": "assets/e07ec34ee3.webp", "x": 1346, "y": 579, "w": 76, "h": 76}, "dots": {"y": 993, "size": 9, "pitch": 18.6, "centerX": 722}, "images": [{"src": "assets/2240d3129a.webp", "alt": "런너의 옷장 꽃보다 기사 Returns VOL.2 — 2026.03.04", "fit": "cover", "position": "50% 50%"}, {"src": "assets/b85c948105.webp", "alt": "런너의 옷장 April Blossom VOL.2 — 2026.4.15", "fit": "cover", "position": "50% 50%"}, {"src": "assets/b2b2fdc712.webp", "alt": "런너의 옷장 Aqua Spirit — 2026.6.10", "fit": "cover", "position": "50% 50%"}, {"src": "assets/c79a77599b.webp", "alt": "런너의 옷장 매지컬 프리즈마 VOL.3 — 2026.8.5", "fit": "cover", "position": "50% 50%"}, {"src": "assets/092a80bced.webp", "alt": "런너의 옷장 매지컬 프리즈마 VOL.4 — 2026.8.19", "fit": "cover", "position": "50% 50%"}, {"src": "assets/10d10d8d6e.webp", "alt": "런너의 옷장 21st Anniversary Festival — 2026.9.2", "fit": "cover", "position": "50% 50%"}]}, "detailImages": [{"src": "assets/2621cb1dce.webp", "w": 1152, "h": 2697, "alt": "런너의 옷장 상세 디자인 — 꽃보다 기사 Returns VOL.2 — 2026.03.04"}, {"src": "assets/1c9cf2b982.webp", "w": 1152, "h": 1232, "alt": "런너의 옷장 상세 디자인 — April Blossom VOL.2 — 2026.4.15"}, {"src": "assets/76210c1111.webp", "w": 1152, "h": 3512, "alt": "런너의 옷장 상세 디자인 — Aqua Spirit — 2026.6.10"}, {"src": "assets/b61757dd68.webp", "w": 1152, "h": 2661, "alt": "런너의 옷장 상세 디자인 — 매지컬 프리즈마 VOL.3 — 2026.8.5"}, {"src": "assets/5cbdcd33d2.webp", "w": 1152, "h": 3430, "alt": "런너의 옷장 상세 디자인 — 매지컬 프리즈마 VOL.4 — 2026.8.19"}, {"src": "assets/8879a2bf49.webp", "w": 1152, "h": 5596, "alt": "런너의 옷장 상세 디자인 — 21st Anniversary Festival — 2026.9.2"}], "detailMap": [0, 1, 2, 3, 4, 5]}], "backIcon": {"src": "assets/98a11921a4.webp", "w": 38, "h": 37}, "ui": {"close": {"src": "assets/ab2d06e5e9.webp"}, "prev": {"src": "assets/973d469a28.webp"}, "next": {"src": "assets/7aa6b42c69.webp"}}}};</script>
+<script>
+(function(){
+  var $=function(i){return document.getElementById(i)},A=window.ARCHIVES||{},root=document.documentElement,list=$('alist'),
+      headS=$('ahs'),himg=$('ahimg'),h1=$('ah1'),back=$('aback'),backImg=$('abackimg'),
+      RM=matchMedia('(prefers-reduced-motion: reduce)').matches,mainY=0,cur=null,trigs=[],fromMain=false,first=true;
+  try{history.scrollRestoration='manual'}catch(e){}
+  function el(t,c){var e=document.createElement(t);if(c)e.className=c;return e}
+  function pct(v,b){return(v/b*100)+'%'}
+  function box(o,W,H){return 'left:'+pct(o.x,W)+';top:'+pct(o.y,H)+';width:'+pct(o.w,W)+';height:'+pct(o.h,H)}
+
+  /* ---- 카드 내부 이미지 캐러셀: 카드마다 독립 상태(클로저), 중앙 작업 이미지 영역만 슬라이드 ---- */
+  function carousel(card,W,H,f){
+    var cv=card.carousel,imgs=cv.images,n=imgs.length,dur=cv.duration||0.4,idx=0,tl=null,act=null;
+    f.__ci=function(){return idx};
+    var view=el('div','cv'),live=el('span','sr-only'),slides=[],dots=[];
+    view.style.cssText=box(cv.viewport,W,H);view.tabIndex=0;
+    view.setAttribute('role','group');view.setAttribute('aria-roledescription','carousel');view.setAttribute('aria-label',card.title+' 이미지');
+    live.setAttribute('aria-live','polite');
+    imgs.forEach(function(o,k){
+      var s=el('div','cs'),im=new Image();
+      s.setAttribute('role','group');s.setAttribute('aria-roledescription','slide');s.setAttribute('aria-label',(k+1)+' / '+n);
+      if(k)s.setAttribute('aria-hidden','true');
+      im.src=o.src;im.alt=o.alt||'';im.draggable=false;im.style.objectFit=o.fit||'cover';im.style.objectPosition=o.position||'50% 50%';
+      s.style.visibility=k?'hidden':'visible';s.appendChild(im);view.appendChild(s);slides.push(s);
+    });
+    view.appendChild(live);f.appendChild(view);
+    if(n<2)return; /* 한 장이면 화살표·페이지네이션 없음 */
+
+    function mark(){dots.forEach(function(d,k){var on=k===idx;d.classList.toggle('on',on);if(on)d.setAttribute('aria-current','true');else d.removeAttribute('aria-current')});live.textContent=(idx+1)+' / '+n}
+    function settle(){ /* 진행 중 전환을 즉시 완료 → 연속 클릭에도 순서가 꼬이지 않음 */
+      if(!act)return;var a=act;act=null;if(tl){tl.kill();tl=null}
+      if(window.gsap)gsap.set(a.to,{xPercent:0});
+      a.from.style.visibility='hidden';a.from.setAttribute('aria-hidden','true');
+    }
+    function go(i,dir){
+      i=((i%n)+n)%n;if(i===idx)return;settle();
+      var from=slides[idx],to=slides[i];dir=dir||(i>idx?1:-1);idx=i;mark();
+      to.style.visibility='visible';to.removeAttribute('aria-hidden');
+      if(RM||!window.gsap){from.style.visibility='hidden';from.setAttribute('aria-hidden','true');return}
+      act={from:from,to:to};
+      gsap.set(to,{xPercent:100*dir});gsap.set(from,{xPercent:0});
+      tl=gsap.timeline({onComplete:settle});
+      tl.to(from,{xPercent:-100*dir,duration:dur,ease:'power2.inOut'},0).to(to,{xPercent:0,duration:dur,ease:'power2.inOut'},0);
+    }
+    function arrow(o,label,step){
+      var b=el('button','ca'),im=new Image();b.type='button';b.setAttribute('aria-label',card.title+' — '+label);
+      b.style.cssText=box(o,W,H);b.style.height='auto';b.style.aspectRatio='1';
+      im.src=o.src;im.alt='';b.appendChild(im);b.addEventListener('click',function(){go(idx+step,step)});f.appendChild(b);
+    }
+    arrow(cv.prev,'이전 이미지',-1);arrow(cv.next,'다음 이미지',1);
+    var dc=cv.dots,total=(n-1)*dc.pitch+dc.size,wrap=el('div','cd');
+    wrap.setAttribute('role','group');wrap.setAttribute('aria-label',card.title+' 이미지 선택');
+    wrap.style.cssText='left:'+pct(dc.centerX-total/2,W)+';top:'+pct(dc.y,H)+';width:'+pct(total,W);
+    imgs.forEach(function(_,k){
+      var d=el('button','cdot');d.type='button';d.style.width=pct(dc.size,total);d.setAttribute('aria-label',(k+1)+'번째 이미지 보기');
+      d.addEventListener('click',function(){go(k)});wrap.appendChild(d);dots.push(d);
+    });
+    f.appendChild(wrap);mark();
+    view.addEventListener('keydown',function(e){if(e.key==='ArrowLeft'){e.preventDefault();go(idx-1,-1)}else if(e.key==='ArrowRight'){e.preventDefault();go(idx+1,1)}});
+    var sx=0,sy=0,pid=null; /* 터치/마우스 스와이프 */
+    view.addEventListener('pointerdown',function(e){if(e.pointerType==='mouse'&&e.button!==0)return;sx=e.clientX;sy=e.clientY;pid=e.pointerId});
+    view.addEventListener('pointerup',function(e){
+      if(pid!==e.pointerId)return;pid=null;var dx=e.clientX-sx,dy=e.clientY-sy;
+      if(Math.abs(dx)>40&&Math.abs(dx)>Math.abs(dy)*1.2)go(idx+(dx<0?1:-1),dx<0?1:-1);
+    });
+    view.addEventListener('pointercancel',function(){pid=null});
+  }
+
+  /* 카드 배열이 유일한 정보 출처 — 항목을 추가하면 자동으로 아래에 쌓임 */
+  function build(id){
+    var a=A[id];list.innerHTML='';
+    h1.textContent=a.number+' '+a.title+' Archive';
+    himg.src=a.header.src;himg.alt=a.header.alt;
+    if(a.backIcon&&!backImg.getAttribute('src'))backImg.src=a.backIcon.src;
+    a.cards.forEach(function(c){
+      var f=el('article','acard'),im=new Image(),b=el('button','fd'),m=c.meta||{},W=a.boxWidth,H=c.image.h;
+      f.id=c.id;f.setAttribute('data-card',c.id);f.setAttribute('data-archive',a.id);
+      im.src=c.image.src;im.width=c.image.w;im.height=c.image.h;im.draggable=false;im.style.width=pct(c.image.w,W);
+      im.alt=c.title+(m.duration?' — '+(m.date?'작업 일시 '+m.date+', ':'')+'소요 기간 '+m.duration+', 작업 인원 '+m.members+', 기여도 '+m.contribution+(m.tools?', 사용 툴 '+m.tools.join(', '):''):'');
+      f.appendChild(im);
+      if(c.carousel)carousel(c,W,H,f);
+      b.type='button';b.setAttribute('data-card',c.id);b.setAttribute('aria-label','FULL DESIGN — '+c.title);
+      b.style.cssText='left:'+pct(c.fullDesign.x,W)+';top:'+pct(c.fullDesign.y,H)+';width:'+pct(c.fullDesign.w,W)+';height:'+pct(c.fullDesign.h,H);
+      /* 팝업은 아직 없음: 카드 식별자만 담은 이벤트를 발생시켜 나중에 연결 */
+      b.addEventListener('click',function(){document.dispatchEvent(new CustomEvent('archive:fulldesign',{detail:{archive:a.id,card:c.id,popup:c.popup||null,carouselIndex:f.__ci?f.__ci():null}}))});
+      f.appendChild(b);list.appendChild(f);
+    });
+  }
+  /* 카드별 독립 등장: opacity 0→1, y 30→0, 0.8s power2.out, top 85%, 1회 (캐러셀과 무관) */
+  function disarm(){trigs.forEach(function(t){try{t.kill()}catch(e){}});trigs=[]}
+  function arm(){
+    disarm();
+    var cards=[].slice.call(list.querySelectorAll('.acard'));
+    if(RM||!window.gsap||!window.ScrollTrigger)return;
+    try{
+      gsap.registerPlugin(ScrollTrigger);
+      gsap.set(cards,{opacity:0,y:30});
+      cards.forEach(function(c){
+        trigs.push(ScrollTrigger.create({trigger:c,start:'top 85%',once:true,onEnter:function(){
+          gsap.to(c,{opacity:1,y:0,duration:0.8,ease:'power2.out',overwrite:true,
+            onComplete:function(){gsap.set(c,{clearProps:'transform,opacity'})}});
+        }}));
+      });
+      requestAnimationFrame(function(){ScrollTrigger.refresh()});
+    }catch(e){try{gsap.set(cards,{clearProps:'all'})}catch(_){};cards.forEach(function(c){c.style.opacity='';c.style.transform=''})}
+  }
+  function layoutHeader(){ /* 뒤로가기 버튼은 헤더 이미지 배율에 맞춰 좌측 60px(1920 기준)에 위치 */
+    var w=himg.getBoundingClientRect().width;
+    document.getElementById('ahead').style.setProperty('--hs',(innerWidth>=1100?w/1920:1));
+    /* 좁은 화면: 내비게이션이 가로 스크롤되며 01이 뒤로가기 버튼 오른쪽에서 시작 */
+    headS.scrollLeft=headS.scrollWidth>headS.clientWidth?Math.max(0,himg.offsetWidth*276/1920-(innerWidth<1100?62:20)):0;
+  }
+  function goBack(){
+    if(fromMain){history.back()}
+    else{try{history.replaceState(null,'',location.pathname+location.search)}catch(e){location.hash=''}route()}
+  }
+  back.addEventListener('click',goBack);
+  function enter(id){
+    build(id);cur=id;root.classList.add('in-archive');
+    scrollTo(0,0);arm();
+    if(himg.complete)layoutHeader();else himg.addEventListener('load',layoutHeader,{once:true});
+  }
+  function leave(){
+    disarm();cur=null;root.classList.remove('in-archive');
+    scrollTo(0,mainY);
+    if(window.ScrollTrigger)requestAnimationFrame(function(){ScrollTrigger.refresh()});
+  }
+  function route(){
+    var m=/^#\/archive\/([\w-]+)$/.exec(location.hash),id=m&&A[m[1]]?m[1]:null;
+    if(id){if(!cur){mainY=scrollY;fromMain=!first}if(cur!==id)enter(id)}else if(cur)leave();
+    first=false;
+  }
+  addEventListener('hashchange',route);
+  addEventListener('resize',function(){if(cur)layoutHeader()});
+  route();
+})();
+</script>
+<div class="pov" id="pov" aria-hidden="true"><div class="pdlg" id="pdlg" role="dialog" aria-modal="true" aria-label="FULL DESIGN 상세보기" tabindex="-1"><button class="pbtn pclose" id="pclose" type="button" aria-label="상세보기 닫기"><img id="pcimg" alt=""></button><button class="pbtn pprev" id="pprev" type="button" aria-label="이전 상세 디자인"><img id="ppimg" alt=""></button><button class="pbtn pnext" id="pnext" type="button" aria-label="다음 상세 디자인"><img id="pnimg" alt=""></button><div class="pscroll" id="pscroll" tabindex="0" role="region" aria-label="상세 디자인 이미지 (방향키로 스크롤)"><div id="pimg"></div></div><span class="sr-only" id="pstat" aria-live="polite"></span></div></div>
+<script>
+(function(){
+  var $=function(i){return document.getElementById(i)},root=document.documentElement,A=window.ARCHIVES||{},
+      pov=$('pov'),dlg=$('pdlg'),pscroll=$('pscroll'),pimg=$('pimg'),pstat=$('pstat'),bc=$('pclose'),bp=$('pprev'),bn=$('pnext'),arch=$('archive'),
+      RM=matchMedia('(prefers-reduced-motion: reduce)').matches,
+      isOpen=false,list=[],idx=0,opener=null,savedY=0,tk=0,downOv=false,uiSet=false;
+  function setUI(a){ if(uiSet||!a.ui)return; $('pcimg').src=a.ui.close.src;$('ppimg').src=a.ui.prev.src;$('pnimg').src=a.ui.next.src;uiSet=true }
+  function swap(i){
+    var it=list[i],secs=it.sections||[it];pimg.innerHTML=''; /* sections: 긴 상세 페이지를 여러 장으로 나눠 올린 경우 세로로 이어 붙임 */
+    secs.forEach(function(s,k){var m=new Image();if(s.w&&s.h){m.width=s.w;m.height=s.h}m.src=s.src;m.draggable=false;
+      m.alt=secs.length>1?(it.alt||'')+' ('+(k+1)+'/'+secs.length+')':(it.alt||'');pimg.appendChild(m)});
+    pscroll.scrollTop=0;pstat.textContent='상세 디자인 '+(i+1)+' / '+list.length;
+  }
+  function show(i,first){
+    idx=((i%list.length)+list.length)%list.length;var my=++tk;
+    if(first||RM||!window.gsap){swap(idx);if(window.gsap)gsap.set(pimg,{opacity:1});return}
+    gsap.killTweensOf(pimg);
+    gsap.to(pimg,{opacity:0,duration:0.125,ease:'power1.out',onComplete:function(){
+      if(my!==tk)return;swap(idx);
+      var d=Promise.all([].map.call(pimg.querySelectorAll('img'),function(m){return m.decode?m.decode().catch(function(){}):0}));
+      d.then(function(){if(my!==tk)return;gsap.to(pimg,{opacity:1,duration:0.125,ease:'power1.in'})});
+    }});
+  }
+  function open(d){
+    var a=A[d.archive],c=a&&a.cards.filter(function(x){return x.id===d.card})[0];
+    if(!c||!c.detailImages||!c.detailImages.length||isOpen)return; /* 상세 이미지가 없는 카드는 열지 않음 */
+    setUI(a);list=c.detailImages;isOpen=true;savedY=scrollY;
+    opener=document.querySelector('.fd[data-card="'+d.card+'"]');
+    var start=0;/* 카드 캐러셀 ↔ 상세 이미지 매핑(detailMap)이 명시된 경우에만 연동 */
+    if(c.detailMap&&d.carouselIndex!=null&&c.detailMap[d.carouselIndex]!=null&&c.detailMap[d.carouselIndex]<list.length)start=c.detailMap[d.carouselIndex];
+    dlg.setAttribute('aria-label',c.title+' FULL DESIGN 상세보기');
+    var multi=list.length>1;bp.style.display=bn.style.display=multi?'':'none';
+    var sbw=innerWidth-root.clientWidth;root.classList.add('pop-open');if(sbw>0)root.style.paddingRight=sbw+'px';
+    if(arch){arch.inert=true;arch.setAttribute('aria-hidden','true')}
+    pov.classList.add('on');pov.setAttribute('aria-hidden','false');
+    show(start,true);
+    if(!RM&&window.gsap){
+      gsap.killTweensOf([pov,dlg]);gsap.set(pov,{opacity:0});gsap.set(dlg,{opacity:0,scale:0.96});
+      gsap.to(pov,{opacity:1,duration:0.3,ease:'power2.out'});
+      gsap.to(dlg,{opacity:1,scale:1,duration:0.3,ease:'power2.out',onComplete:function(){gsap.set([pov,dlg],{clearProps:'opacity,transform'})}});
+    }
+    pscroll.focus({preventScroll:true});
+  }
+  function close(now){
+    if(!isOpen)return;isOpen=false;tk++;
+    function done(){
+      if(window.gsap){gsap.killTweensOf([pov,dlg,pimg]);gsap.set([pov,dlg],{clearProps:'opacity,transform'});gsap.set(pimg,{opacity:1})}
+      pov.classList.remove('on');pov.setAttribute('aria-hidden','true');root.classList.remove('pop-open');root.style.paddingRight='';
+      if(arch){arch.inert=false;arch.removeAttribute('aria-hidden')}
+      scrollTo(0,savedY);if(opener&&opener.focus)opener.focus({preventScroll:true});
+    }
+    if(now||RM||!window.gsap){done();return}
+    gsap.killTweensOf([pov,dlg]);gsap.to(pov,{opacity:0,duration:0.2,ease:'power2.in',onComplete:done});
+  }
+  document.addEventListener('archive:fulldesign',function(e){open(e.detail||{})});
+  bc.addEventListener('click',function(){close()});
+  bp.addEventListener('click',function(){show(idx-1)});
+  bn.addEventListener('click',function(){show(idx+1)});
+  pov.addEventListener('pointerdown',function(e){downOv=e.target===pov});
+  pov.addEventListener('click',function(e){if(e.target===pov&&downOv)close();downOv=false});
+  document.addEventListener('keydown',function(e){
+    if(!isOpen)return;
+    if(e.key==='Escape'){e.preventDefault();close();return}
+    if((e.key==='ArrowLeft'||e.key==='ArrowRight')&&list.length>1){e.preventDefault();show(idx+(e.key==='ArrowLeft'?-1:1));return}
+    if(e.key==='Tab'){ /* 포커스를 팝업 안에 가둠 */
+      var f=[bc,bp,bn,pscroll].filter(function(x){return x.offsetParent!==null||x===pscroll});
+      var i=f.indexOf(document.activeElement);
+      if(i<0){e.preventDefault();f[0].focus();return}
+      if(e.shiftKey&&i===0){e.preventDefault();f[f.length-1].focus()}else if(!e.shiftKey&&i===f.length-1){e.preventDefault();f[0].focus()}
+    }
+  });
+  addEventListener('hashchange',function(){close(true)});
+})();
+</script>
+</body>
+</html>
